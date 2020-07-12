@@ -1,22 +1,23 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
-const Emblem = mongoose.model("emblem");
+const Abode =  mongoose.model("abode");
 
-const EmblemType = new GraphQLObjectType({
-    name: "EmblemType",
+const AbodeType = new GraphQLObjectType({
+    name: "AbodeType",
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        gods: {
+        coordinates: { type: GraphQLString },
+        gods: { 
             type: new GraphQLList(require("./god_type")),
             resolve(parentValue) {
-                return Emblem.findById(parentValue.id)
+                return Abode.findById(parentValue.id)
                     .populate("gods")
-                    .then(emblem => emblem.gods);
+                    .then(abode => abode.gods);
             }
         }
     })
 });
 
-module.exports = EmblemType;
+module.exports = AbodeType;
