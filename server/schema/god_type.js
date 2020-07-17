@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
 
+const Abode = mongoose.model("abode");
 const AbodeType = require("./abode_type");
+const Emblem = mongoose.model("emblem");
+const EmblemType = require("./emblem_type");
 
 const GodType = new GraphQLObjectType({
     name: "GodType",
@@ -18,6 +21,14 @@ const GodType = new GraphQLObjectType({
                 return Abode.findById(parentValue.abode)
                     .then(abode => abode)
                     .catch(err => null)
+            }
+        },
+        emblems: {
+            type: new GraphQLList(EmblemType),
+            resolve(parentValue) {
+                return GodType.findById(parentValue.id)
+                    .populate("emblems")
+                    .then(god => god.emblems)
             }
         }
     })
