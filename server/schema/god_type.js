@@ -6,6 +6,7 @@ const Abode = mongoose.model("abode");
 const AbodeType = require("./abode_type");
 const Emblem = mongoose.model("emblem");
 const EmblemType = require("./emblem_type");
+const God = mongoose.model("god");
 
 const GodType = new GraphQLObjectType({
     name: "GodType",
@@ -29,6 +30,24 @@ const GodType = new GraphQLObjectType({
                 return GodType.findById(parentValue.id)
                     .populate("emblems")
                     .then(god => god.emblems)
+            }
+        },
+        parents: {
+            type: new GraphQLList(GodType),
+            resolve(parentValue) {
+                return God.findRelatives(parentValue.id, "parents")
+            }
+        },
+        children: {
+            type: new GraphQLObjectType(GodType),
+            resolve(parentValue) {
+                return God.findRelatives(parentValue.id, "children")
+            }
+        },
+        siblings: {
+            type: new GraphQLList(GodType),
+            resolve(parentValue) {
+                return God.findRelatives(parentValue.id, "siblings")
             }
         }
     })
