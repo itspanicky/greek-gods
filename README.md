@@ -11,3 +11,22 @@
 # Common Errors
 - RootQueryType.resolve field config must be an object.
     - resolve function is misplaced
+
+
+# Queries
+1. Zeus
+    {
+    god(id: "5c98ea9bd5a3ca0de10a151a" ) {
+            id,
+            name,
+            type,
+            description,
+            domains,
+            abode {name, coordinates},
+            emblems {name}
+                parents {name},
+            children {name},
+            siblings {name}
+            
+        }
+    }
