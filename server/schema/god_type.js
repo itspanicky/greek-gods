@@ -27,7 +27,7 @@ const GodType = new GraphQLObjectType({
         emblems: {
             type: new GraphQLList(EmblemType),
             resolve(parentValue) {
-                return GodType.findById(parentValue.id)
+                return God.findById(parentValue.id)
                     .populate("emblems")
                     .then(god => god.emblems)
             }
