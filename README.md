@@ -48,3 +48,13 @@
         id
       }
     }
+
+3. Update God
+    mutation {
+      updateGod(id:"5f16414cc2ee1012dcba6d82", name:"Updated Test God") {
+        id,
+        name,
+        type,
+        description
+      }
+    }

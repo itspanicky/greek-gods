@@ -26,6 +26,25 @@ const mutation = new GraphQLObjectType({
           resolve(parentValue, { id }) {
               return God.findByIdAndDelete({ _id: id });
           }
+      },
+      updateGod: {
+          type: GodType,
+          args: {
+              id: { type: GraphQLID },
+              name: { type: GraphQLString },
+              type: { type: GraphQLString },
+              description: { type: GraphQLString }
+          },
+          resolve(parentValue, { id, name, type, description }) {
+            const updateObj = {};
+            if (name) updateObj.name = name;
+            if (type) updateObj.type = type;
+            if (description) updateObj.description = description;
+
+            return God.findOneAndUpdate({ _id: id }, { $set: updateObj }, { $new: true }, (err, god) => {
+                return god
+            });
+          }
       }
     }
 });
