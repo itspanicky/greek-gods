@@ -30,3 +30,21 @@
             
         }
     }
+
+# Mutations
+1. Create New God
+    mutation {
+      newGod(name: "Test", type: "Test", description: "Test") {
+        id,
+        name,
+        type,
+        description
+      }
+    }
+
+2. Delete God
+    mutation {
+      deleteGod(id: "5f16414cc2ee1012dcba6d82") {
+        id
+      }
+    }

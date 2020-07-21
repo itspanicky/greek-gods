@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt } = graphql;
 const mongoose = require("mongoose");
 const God = mongoose.model("god");
 const GodType = require("./god_type");
@@ -21,10 +21,10 @@ const mutation = new GraphQLObjectType({
       deleteGod: {
           type: GodType,
           args: {
-              id: { type: GraphQLString }
+              id: { type: GraphQLID }
           },
           resolve(parentValue, { id }) {
-              return God.deleteOne({ id })
+              return God.findByIdAndDelete({ _id: id });
           }
       }
     }
