@@ -73,6 +73,33 @@ GodSchema.statics.removeRelative = function(godId, relativeId, relationship) {
         relative.siblings.pull(god);
         break;
     }
+
+    return Promise.all([god.save(), relative.save()]).then(
+      ([god, relative]) => god
+    );
+  })
+}
+
+GodSchema.statics.updateAbode = function(godId, abodeId) {
+  const God = mongoose.model("god");
+  const Abode = mongoose.model("abode");
+
+  return God.findById(godId).then(god => {
+    if (god.abode) {
+      Abode.findById(abodeId).then(oldAbode => {
+        oldAbode.gods.pull(god);
+        return oldAbode.save();
+      })
+    }
+
+    return Abode.findById(abodeId).then(newAbode => {
+      god.abode = newAbode
+      newAbode.gods.push(god);
+
+      return Promise.all([god.save(), newAbode.save()]).then(
+        ([god, newAbode]) => god
+      );
+    })
   })
 }
 
