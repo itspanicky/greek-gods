@@ -103,4 +103,11 @@ GodSchema.statics.updateAbode = function(godId, abodeId) {
   })
 }
 
+GodSchema.statics.addDomain = function(godId, domain) {
+  return this.findById(godId).then(god => {
+    god.domains.push(domain);
+    return god.save().then(god => god);
+  })
+}
+
 module.exports = mongoose.model("god", GodSchema);
