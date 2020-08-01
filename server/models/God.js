@@ -110,4 +110,13 @@ GodSchema.statics.addDomain = function(godId, domain) {
   })
 }
 
+GodSchema.statics.removeDomain = function(godId, domain) {
+  return this.findById(godId).then(god => {
+    god.domains.forEach((godDomain, i) => {
+      if (godDomain === domain) god.domains.splice(i, 1);
+    })
+    return god.save().then(god => god);
+  })
+}
+
 module.exports = mongoose.model("god", GodSchema);
