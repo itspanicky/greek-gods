@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLInt } = graphql;
 const mongoose = require("mongoose");
 const Abode = mongoose.model("abode");
 const AbodeType = require("./abode_type");
@@ -147,9 +147,41 @@ const mutation = new GraphQLObjectType({
         )
       }
     },
-    // newEmblem,
-    // deleteEmblem,
-    // updateEmblem,
+    newEmblem: { 
+      type: EmblemType,
+      args: {
+        name: { type: GraphQLString },
+      },
+      resolve(parentValue, { id, name }) {
+        return new Emblem({ name }).save();
+      }
+    },
+    deleteEmblem: {
+      type: EmblemType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve(parentValue, { id }) {
+        return Emblem.findByIdAndDelete({ _id: id });
+      }
+    },
+    updateEmblem: {
+      type: EmblemType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: new GraphQLNonNull(GraphQLString)}
+      },
+      resolve(parentValue, { id, name }) {
+        return Emblem.findOneAndUpdate(
+          { _id: id },
+          { $set: { name } },
+          { $new: true },
+          (err, emblem) => {
+            return emblem;
+          }
+        )
+      }
+    },
   },
 });
 
