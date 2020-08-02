@@ -25,7 +25,7 @@ const mutation = new GraphQLObjectType({
     deleteGod: {
       type: GodType,
       args: {
-        id: { type: GraphQLID },
+        id: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parentValue, { id }) {
         return God.findByIdAndDelete({ _id: id });
@@ -34,7 +34,7 @@ const mutation = new GraphQLObjectType({
     updateGod: {
       type: GodType,
       args: {
-        id: { type: GraphQLID },
+        id: { type: new GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
         type: { type: GraphQLString },
         description: { type: GraphQLString },
@@ -58,9 +58,9 @@ const mutation = new GraphQLObjectType({
     addGodRelative: {
       type: GodType,
       args: {
-        godId: { type: GraphQLID },
-        relativeId: { type: GraphQLID },
-        relationship: { type: GraphQLString },
+        godId: { type: new GraphQLNonNull(GraphQLID) },
+        relativeId: { type: new GraphQLNonNull(GraphQLID) },
+        relationship: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parentValue, { godId, relativeId, relationship }) {
         return God.addRelative(godId, relativeId, relationship);
@@ -69,8 +69,8 @@ const mutation = new GraphQLObjectType({
     removeGodRelative: {
       type: GodType,
       args: {
-        godId: { type: GraphQLID },
-        relativeId: { type: GraphQLID },
+        godId: { type: new GraphQLNonNull(GraphQLID) },
+        relativeId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parentValue, { godId, relativeId, relationship }) {
         return God.removeRelative(godId, relativeId, relationship);
@@ -79,8 +79,8 @@ const mutation = new GraphQLObjectType({
     updateGodAbode: {
       type: GodType,
       args: {
-        godId: { type: GraphQLID },
-        abodeId: { type: GraphQLID }
+        godId: { type: new GraphQLNonNull(GraphQLID) },
+        abodeId: { type: new GraphQLNonNull(GraphQLID) }
       },
       resolve(parentValue, { godId, abodeId }) {
         return God.updateAbode(godId, abodeId);
@@ -89,8 +89,8 @@ const mutation = new GraphQLObjectType({
     addGodDomain: {
       type: GodType,
       args: {
-        godId: { type: GraphQLID },
-        domain: { type: GraphQLString }
+        godId: { type: new GraphQLNonNull(GraphQLID) },
+        domain: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, { godId, domain }) {
         return God.addDomain(godId, domain);
@@ -99,8 +99,8 @@ const mutation = new GraphQLObjectType({
     removeGodDomain: {
       type: GodType,
       args: {
-        godId: { type: GraphQLID },
-        domain: { type: GraphQLString }
+        godId: { type: new GraphQLNonNull(GraphQLID) },
+        domain: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, { godId, domain }) {
         return God.removeDomain(godId, domain);
@@ -116,8 +116,37 @@ const mutation = new GraphQLObjectType({
         return new Abode({ name, coordinates }).save();
       }
     },
-    // deleteAbode,
-    // updateAbode,
+    deleteAbode: {
+      type: AbodeType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve(parentValue, { id }) {
+        return Abode.findByIdAndDelete({ _id: id });
+      }
+    },
+    updateAbode: { 
+      type: AbodeType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        coordinates: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name, coordinates }) {
+        const updateObj = {};
+        if (name) updateObj.name = name;
+        if (coordinates) updateObj.coordinates = coordinates;
+
+        return Abode.findOneAndUpdate(
+          { _id: id },
+          { $set: updateObj },
+          { $new: true },
+          (err, abode) => {
+            return abode;
+          }
+        )
+      }
+    },
     // newEmblem,
     // deleteEmblem,
     // updateEmblem,
