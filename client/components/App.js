@@ -1,5 +1,11 @@
 import React from "react";
 
-const App = () => <div>Routes go here!</div>;
+const App = () => {
+  return (
+    <div>
+      <Route exact path="/" component={GodsList} />
+    </div>
+  );
+};
 
 export default App;
