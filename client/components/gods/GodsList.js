@@ -9,7 +9,7 @@ const GodsList = () => {
     <div className="outer">
       <ul>
         <Query query={FETCH_GODS}>
-          {({ loading, error }) => {
+          {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
 
