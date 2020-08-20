@@ -26,6 +26,7 @@ const DeleteGod = (props) => {
         <a
           style={linkStyle}
           onClick={(e) => {
+              debugger;
             e.preventDefault();
             deleteGod({ variables: { id: props.id } });
           }}

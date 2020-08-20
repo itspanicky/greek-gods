@@ -5,6 +5,7 @@ export default {
   // just like we would in GraphiQL
   DELETE_GOD: gql`
     mutation DeleteGod($id: ID) {
+        debugger
       deleteGod(id: $id) {
         id
       }
