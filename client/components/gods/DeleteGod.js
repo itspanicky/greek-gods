@@ -15,6 +15,7 @@ const DeleteGod = (props) => {
     <Mutation
       mutation={DELETE_GOD}
       refetchQueries={() => {
+        //  queries to refetch after a mutation has occurred
         return [
           {
             query: FETCH_GODS,
@@ -26,7 +27,6 @@ const DeleteGod = (props) => {
         <a
           style={linkStyle}
           onClick={(e) => {
-              debugger;
             e.preventDefault();
             deleteGod({ variables: { id: props.id } });
           }}
