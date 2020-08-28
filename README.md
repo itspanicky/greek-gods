@@ -62,3 +62,7 @@
 
 # Apollo
 1. Apollo Client - state management library for both local and remote data with GraphQL
+2. Refetching Data
+  - update
+  - refetchQueries
+  - Not needed when updating information already in cache because object is mapped to it's id

@@ -1,8 +1,8 @@
 import React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
+import DeleteGod from "./DeleteGod";
 import Queries from "../../graphql/queries";
-import DeleteGod from "./DeleteGod"
 const { FETCH_GODS } = Queries;
 
 const GodsList = () => {
