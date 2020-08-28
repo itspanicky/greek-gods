@@ -58,3 +58,7 @@
         description
       }
     }
+
+
+# Apollo
+1. Apollo Client - state management library for both local and remote data with GraphQL

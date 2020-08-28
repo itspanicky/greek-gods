@@ -15,7 +15,6 @@ const cache = new InMemoryCache({
 
 const client = new ApolloClient({
   uri: "http://localhost:5000/graphql",
-  // using the cache we just created
   cache: cache,
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);

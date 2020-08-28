@@ -1,6 +1,9 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 
+import Queries from "../../graphql/queries";
+const { FETCH_GODS } = Queries;
+
 import Mutations from "../../graphql/mutations";
 const { DELETE_GOD } = Mutations;
 
@@ -24,6 +27,7 @@ const DeleteGod = (props) => {
       }}
     >
       {(deleteGod, { data }) => (
+          // args: name of mutation (invokable), data we get back
         <a
           style={linkStyle}
           onClick={(e) => {
