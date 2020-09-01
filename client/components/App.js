@@ -1,10 +1,12 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import GodsList from "./gods/GodsList";
+import GodCreate from "./create/GodCreate";
 
 const App = () => {
   return (
     <div>
+      <Route exact path="/create-god" component={GodCreate} />
       <Route exact path="/" component={GodsList} />
     </div>
   );
