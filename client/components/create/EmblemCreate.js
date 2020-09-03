@@ -25,7 +25,7 @@ const EmblemCreate = () => {
     const updateCache = (cache, { data: { newEmblem } }) => {
         let query;
        try {
-         // read current cache for fetching gods query
+         // read current cache for fetching emblems query
          query = cache.readQuery({ query: FETCH_EMBLEMS });
        } catch (err) {
          return;

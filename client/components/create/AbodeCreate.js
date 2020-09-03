@@ -30,12 +30,12 @@ const AbodeCreate = () => {
     const updateCache = (cache, { data: { newAbode } }) => {
       let query;
       try {
-        // read current cache for fetching gods query
+        // read current cache for fetching abodes query
         query = cache.readQuery({ query: FETCH_ABODES });
       } catch (err) {
         return;
       }
-
+      
       if (query) {
         let abodeArray = query.abodes;
         // overwrite query
