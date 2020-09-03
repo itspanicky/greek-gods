@@ -11,6 +11,17 @@ const EmblemCreate = () => {
     const [name, setName] = useState("");
     const [message, setMessage] = useState("");
 
+    const handleSubmit = (e, newEmblem) => {
+        e.preventDefault();
+        newEmblem({
+            variables: { name }
+        }). then(data => {
+            console.log(data);
+            setMessage(`New emblem "${name}" created successfully`);
+            setName("");
+        })
+    };
+
     const updateCache = (cache, { data: { newEmblem } }) => {
         let query;
        try {
