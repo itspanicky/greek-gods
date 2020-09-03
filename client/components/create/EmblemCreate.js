@@ -15,7 +15,7 @@ const EmblemCreate = () => {
         e.preventDefault();
         newEmblem({
             variables: { name }
-        }). then(data => {
+        }).then(data => {
             console.log(data);
             setMessage(`New emblem "${name}" created successfully`);
             setName("");

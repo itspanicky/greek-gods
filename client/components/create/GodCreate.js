@@ -8,7 +8,6 @@ const { NEW_GOD } = Mutations;
 const { FETCH_GODS } = Queries;
 
 const GodCreate = () => {
-
     const [name, setName] = useState("");
     const [type, setType] = useState("god");
     const [description, setDescription] = useState("");
