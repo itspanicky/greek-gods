@@ -8,24 +8,14 @@ const { NEW_GOD } = Mutations;
 const { FETCH_GODS } = Queries;
 
 const GodCreate = () => {
-    const [form, setForm] = useState({
-        name: "",
-        type: "god",
-        description: ""
-    });
 
+    const [name, setName] = useState("");
+    const [type, setType] = useState("god");
+    const [description, setDescription] = useState("");
     const [message, setMessage] = useState();
-
-    const update = (e, field) => {
-        setForm({
-            ...form,
-            [field]: e.target.value
-        })
-    };
 
     const handleSubmit = (e, newGod) => {
         e.preventDefault();
-        const { name, type, description } = form;
         newGod({
             variables: {
                 name,
@@ -35,11 +25,9 @@ const GodCreate = () => {
         }).then(data => {
             console.log(data);
             setMessage(`New god "${name}" created successfully`);
-            setForm({
-                name: "",
-                type: "god",
-                description: ""
-            });
+            setName("");
+            setType("god");
+            setDescription("");
         })
     }
 
@@ -71,17 +59,17 @@ const GodCreate = () => {
           <div>
             <form onSubmit={(e) => handleSubmit(e, newGod)}>
               <input
-                onChange={update("name")}
-                value={form.name}
+                onChange={(e) => setName(e.target.value)}
+                value={name}
                 placeholder="Name"
               />
-              <select value={form.type} onChange={update("type")}>
+              <select value={type} onChange={(e) => setType(e.target.value)}>
                 <option value="god">God</option>
                 <option value="goddess">Goddess</option>
               </select>
               <textarea
-                value={form.description}
-                onChange={update("description")}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="description"
               />
               <button type="submit">Create God</button>
