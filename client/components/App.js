@@ -1,13 +1,21 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { 
+  BrowserRouter as Router, 
+  Switch, 
+  Route 
+} from "react-router-dom";
+import Navigation from "./navigation/index";
 import GodsList from "./gods/GodsList";
 import Create from "./create/Create";
 
 const App = () => {
   return (
     <div>
-      <Route exact path="/new" component={Create} />
-      <Route exact path="/" component={GodsList} />
+      <Navigation />
+      <Switch>
+        <Route exact path="/new" component={Create} />
+        <Route exact path="/" component={GodsList} />
+      </Switch>
     </div>
   );
 };
