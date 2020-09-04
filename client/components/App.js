@@ -4,19 +4,22 @@ import {
   Switch, 
   Route 
 } from "react-router-dom";
+import {
+  browserHistory
+} from "react-router";
 import Navigation from "./navigation/index";
 import GodsList from "./gods/GodsList";
 import Create from "./create/Create";
 
 const App = () => {
   return (
-    <div>
+    <Router history={browserHistory} >
       <Navigation />
       <Switch>
         <Route exact path="/new" component={Create} />
         <Route exact path="/" component={GodsList} />
       </Switch>
-    </div>
+    </Router> 
   );
 };
 
