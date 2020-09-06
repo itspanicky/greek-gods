@@ -11,6 +11,14 @@ export default {
       }
     }
   `,
+  UPDATE_GOD_TYPE: gql`
+    mutation updateGod($id: ID!, $type: String!) {
+      updateGod(id: $id, type: $type) {
+        id
+        type
+      }
+    }
+  `,
   DELETE_GOD: gql`
     mutation DeleteGod($id: ID!) {
       deleteGod(id: $id) {
