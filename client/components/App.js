@@ -1,20 +1,20 @@
 import React from "react";
 import { 
-  BrowserRouter as Router, 
+  Router, 
   Switch, 
   Route 
 } from "react-router-dom";
-import {
-  browserHistory
-} from "react-router";
+import { createBrowserHistory } from "history";
+
 import Navigation from "./navigation/index";
 import GodsList from "./gods/GodsList";
 import GodDetail from "./gods/GodDetail";
 import Create from "./create/Create";
 
+const history = createBrowserHistory();
 const App = () => {
   return (
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Navigation />
       <Switch>
         <Route exact path="/gods/:id" component={GodDetail} />
