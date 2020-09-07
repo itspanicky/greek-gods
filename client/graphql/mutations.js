@@ -19,6 +19,14 @@ export default {
       }
     }
   `,
+  UPDATE_GOD_DESCRIPTION: gql`
+    mutation updateGod($id: ID!, $description: String!) {
+      updateGod(id: $id, description: $description) {
+        id
+        description
+      }
+    }
+  `,
   DELETE_GOD: gql`
     mutation DeleteGod($id: ID!) {
       deleteGod(id: $id) {
