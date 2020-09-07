@@ -5,7 +5,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import Mutations from "../../graphql/mutations";
 const { UPDATE_GOD_NAME } = Mutations;
 
-const NameDetail = (props) => {
+const NameDetail = props => {
     const [editing, setEditing] = useState(false);
     const [name, setName] = useState(props.name || "");
 
