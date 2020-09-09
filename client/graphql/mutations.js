@@ -19,6 +19,22 @@ export default {
       }
     }
   `,
+  ADD_GOD_DOMAIN: gql`
+    mutation addGodDomain($id: ID!, $domain: String!) {
+      addGodDomain(id: $id, domain: $domain) {
+        id
+        domains
+      }
+    }
+  `,
+  REMOVE_GOD_DOMAIN: gql`
+    mutation removeGodDomain($id: ID!, $domain: String!) {
+      removeGodDomain(id: $id, domain: $domain) {
+        id
+        domains
+      }
+    }
+  `,
   UPDATE_GOD_DESCRIPTION: gql`
     mutation updateGod($id: ID!, $description: String!) {
       updateGod(id: $id, description: $description) {
