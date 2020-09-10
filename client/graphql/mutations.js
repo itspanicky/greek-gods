@@ -21,7 +21,7 @@ export default {
   `,
   ADD_GOD_DOMAIN: gql`
     mutation addGodDomain($id: ID!, $domain: String!) {
-      addGodDomain(id: $id, domain: $domain) {
+      addGodDomain(godId: $id, domain: $domain) {
         id
         domains
       }
@@ -29,7 +29,7 @@ export default {
   `,
   REMOVE_GOD_DOMAIN: gql`
     mutation removeGodDomain($id: ID!, $domain: String!) {
-      removeGodDomain(id: $id, domain: $domain) {
+      removeGodDomain(godId: $id, domain: $domain) {
         id
         domains
       }
