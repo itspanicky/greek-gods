@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AbodeSelect from "../abodes/AbodeSelect";
 import { Mutation, Query } from "react-apollo";
 import { IconContext } from "react-icons";
 import { FaPencilAlt } from "react-icons/fa";
@@ -13,14 +12,14 @@ const { FETCH_ABODES } = Queries;
 const AbodeDetail = props => {
   const [editing, setEditing] = useState(false);
   const [abode, setAbode] = useState(props.abode || null);
-  const [abodes, setAbodes] = useState([]);
 
   console.log("abode", abode);
 
   const handleChange = (e) => {
     e.preventDefault();
     const id = e.target.value;
-    const name = abodes.find(ele => ele.id = id).name;
+    const name = e.target.options[e.target.selectedIndex].getAttribute("data");
+    console.log("name", name);
     setAbode({ id, name });
   }
 
@@ -39,22 +38,21 @@ const AbodeDetail = props => {
   if (editing) {
     return (
       <div>
-        {/* <AbodeSelect abode={abode} onChange={(e) => setAbode(e.target.value)} /> */}
         <Mutation mutation={UPDATE_GOD_ABODE}>
           {(updateGodAbode, data) => (
             <div>
               <form onSubmit={(e) => handleSubmit(e, updateGodAbode)}>
                 <select
-                  value={abode}
+                  value={abode.id}
                   onChange={handleChange}
                 >
                   <Query query={FETCH_ABODES}>
                     {({ loading, error, data }) => {
                       if (loading) return <option>Loading...</option>;
                       if (error) return <option>Error</option>;
-                      setAbodes(data.abodes);
+
                       return data.abodes.map(({ id, name }) => (
-                        <option key={id} value={id}>
+                        <option key={id} value={id} data={name} >
                           {name}
                         </option>
                       ));
