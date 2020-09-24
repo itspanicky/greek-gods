@@ -13,8 +13,6 @@ const AbodeDetail = props => {
   const [editing, setEditing] = useState(false);
   const [abode, setAbode] = useState(props.abode || null);
 
-  console.log("abode", abode);
-
   const handleChange = (e) => {
     e.preventDefault();
     const id = e.target.value;
@@ -42,17 +40,17 @@ const AbodeDetail = props => {
           {(updateGodAbode, data) => (
             <div>
               <form onSubmit={(e) => handleSubmit(e, updateGodAbode)}>
-                <select
-                  value={abode.id}
-                  onChange={handleChange}
-                >
+                <select value={abode.id} onChange={handleChange}>
+                  <option disabled>
+                    Select abode
+                  </option>
                   <Query query={FETCH_ABODES}>
                     {({ loading, error, data }) => {
                       if (loading) return <option>Loading...</option>;
                       if (error) return <option>Error</option>;
 
                       return data.abodes.map(({ id, name }) => (
-                        <option key={id} value={id} data={name} >
+                        <option key={id} value={id} data={name}>
                           {name}
                         </option>
                       ));
